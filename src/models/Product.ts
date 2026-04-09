@@ -1,5 +1,5 @@
 import mongoose, { Schema, Document } from "mongoose";
-
+import slugify from "slugify";
 export interface IProduct extends Document {
   name: string;
   slug: string;
@@ -52,14 +52,24 @@ const productSchema = new Schema<IProduct>(
 );
 
 // Auto-generate slug from name before saving
-productSchema.pre("save", function (next) {
-  if (!this.isModified("name")) return next();
-  this.slug = this.name
-    .toLowerCase()
-    .trim()
-    .replace(/[^a-z0-9 -]/g, "")
-    .replace(/\s+/g, "-");
-  next();
+// productSchema.pre("save", function (next) {
+//   if (!this.isModified("name")) return next();
+//   this.slug = this.name
+//     .toLowerCase()
+//     .trim()
+//     .replace(/[^a-z0-9 -]/g, "")
+//     .replace(/\s+/g, "-");
+//   next();
+// });
+
+productSchema.pre("save", function () {
+  console.log("🔥 SLUG GENERATING FOR:", this.name);
+  if (!this.slug) {
+    this.slug = slugify(this.name, {
+      lower: true,
+      strict: true,
+    });
+  }
 });
 
 export const Product =

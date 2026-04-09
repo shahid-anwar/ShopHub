@@ -24,13 +24,15 @@ export async function POST(req: Request) {
     }
 
     // password gets hashed automatically by the pre('save') hook
-    const user = await User.create({ name, email, password });
+    const user = new User({ name, email, password });
+    await user.save();
 
     return NextResponse.json(
       { message: "Account created", userId: user._id },
       { status: 201 },
     );
   } catch (err: unknown) {
+    console.error("REGISTER ERROR:", err);
     if (err instanceof Error && err.name === "ValidationError") {
       const messages = Object.values((err as any).errors).map(
         (e: any) => e.message,
