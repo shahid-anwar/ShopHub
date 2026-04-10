@@ -19,6 +19,8 @@ export const metadata: Metadata = {
 
 import { SessionProvider } from "next-auth/react";
 import { auth } from "@/auth";
+import { Suspense } from "react";
+import Navbar from "@/components/shared/Navbar";
 
 export default async function RootLayout({
   children,
@@ -29,7 +31,12 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body>
-        <SessionProvider session={session}>{children}</SessionProvider>
+        <SessionProvider session={session}>
+          <Suspense>
+            <Navbar />
+          </Suspense>
+          <main> {children}</main>
+        </SessionProvider>
       </body>
     </html>
   );

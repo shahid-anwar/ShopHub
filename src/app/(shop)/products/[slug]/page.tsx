@@ -7,11 +7,12 @@ import AddToCartButton from "@/components/shared/AddToCartButton";
 export default async function ProductDetailPage({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) {
+  const { slug } = await params; // ✅ FIX
   await connectDB();
 
-  const product = await Product.findOne({ slug: params.slug })
+  const product = await Product.findOne({ slug })
     .populate("category", "name")
     .lean();
 
