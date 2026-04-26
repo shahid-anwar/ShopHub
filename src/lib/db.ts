@@ -24,6 +24,7 @@ export default clientPromise;
 const MONGODB_URI = process.env.MONGODB_URI!;
 
 if (!MONGODB_URI) {
+  console.log("URI:", process.env.MONGODB_URI);
   throw new Error("Mongo URI missing");
 }
 

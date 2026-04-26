@@ -58,6 +58,8 @@ const orderSchema = new Schema<IOrder>(
       type: String,
       enum: ["unpaid", "paid"],
       default: "unpaid",
+      razorpayOrderId: { type: String },
+      razorpayPaymentId: { type: String },
     },
   },
   { timestamps: true },
