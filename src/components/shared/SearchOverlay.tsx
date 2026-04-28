@@ -22,7 +22,7 @@ export default function SearchOverlay() {
   const [loading, setLoading] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
-  const debounceRef = useRef<NodeJS.Timeout>();
+  const debounceRef = useRef<NodeJS.Timeout | null>(null);
 
   // open on keyboard shortcut Cmd+K / Ctrl+K
   useEffect(() => {
@@ -55,7 +55,7 @@ export default function SearchOverlay() {
       setResults([]);
       return;
     }
-    clearTimeout(debounceRef.current);
+    if (debounceRef.current) clearTimeout(debounceRef.current);
     setLoading(true);
     debounceRef.current = setTimeout(async () => {
       try {
@@ -70,8 +70,6 @@ export default function SearchOverlay() {
         setLoading(false);
       }
     }, 300);
-
-    return () => clearTimeout(debounceRef.current);
   }, [query]);
 
   function handleResultClick() {
