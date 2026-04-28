@@ -88,7 +88,7 @@ export default async function ProductsPage({ searchParams }: Props) {
 
   return (
     <Suspense fallback={<div className="p-8 text-gray-400">Loading...</div>}>
-      <ProductsClient {...data} searchParams={await searchParams} />
+      <ProductsClient {...data} />
     </Suspense>
   );
 }
