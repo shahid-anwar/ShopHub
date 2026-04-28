@@ -42,7 +42,7 @@ export default function ProductForm({ categories, product }: Props) {
       stock: Number(form.stock),
       images: form.images
         .split(",")
-        .map((s) => s.trim())
+        .map((s: string) => s.trim())
         .filter(Boolean),
     };
 
