@@ -1,8 +1,14 @@
-import mongoose from "mongoose";
 import dotenv from "dotenv";
-dotenv.config({ path: ".env.local" });
+import path from "path";
 
+dotenv.config({
+  path: path.resolve(process.cwd(), ".env.local"),
+});
+
+console.log("ENV CHECK:", process.env.MONGODB_URI);
 import { connectDB } from "./db";
+import mongoose from "mongoose";
+console.log("CWD:", process.cwd());
 import { Category } from "@/models/Category";
 import { Product } from "@/models/Product";
 
