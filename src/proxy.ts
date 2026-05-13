@@ -23,4 +23,5 @@ export default auth((req) => {
 
 export const config = {
   matcher: ["/checkout/:path*", "/orders/:path*", "/admin/:path*"],
+  runtime: "nodejs",
 };
